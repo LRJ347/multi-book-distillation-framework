@@ -1,0 +1,14 @@
+{
+  "skill": "<skill-slug>",
+  "version": "1.0.0",
+  "level": "L1 | L2 | L3",
+  "sources": ["<书 1>", "<书 2>"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "<具体问>", "expect": "<期望回答>"},
+    {"type": "should-invoke", "prompt": "<具体问>", "expect": "<期望回答>"},
+    {"type": "should-not-invoke", "prompt": "<诱饵>", "expect": "不调用"},
+    {"type": "should-not-invoke", "prompt": "<诱饵>", "expect": "不调用"},
+    {"type": "boundary", "prompt": "<边界场景>", "expect": "<期望回答>"},
+    {"type": "cross-skill", "prompt": "<应触发另一个 skill 的场景>", "expect": "调用 <另一个 skill>"}
+  ]
+}

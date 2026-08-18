@@ -1,0 +1,56 @@
+# <Skill 名> 四层验证报告
+
+> 版本: <vX.Y.Z> | 日期: <日期> | 依据: EVALUATION_PROTOCOL.md v1.1.7
+
+## V-REF 引用权威校验
+| 本 skill 主张 | 权威来源(evidence_hierarchy) | 类别 | 状态 |
+|---|---|---|---|
+| 规则 1 | <权威类型: 具体来源> | supported/enhanced/conflict | PASS/CONDITIONAL |
+| 规则 2 | ... | ... | ... |
+
+## V-REAL 真实世界验证
+| 指标 | 值 | 阈值参考 | 通过 |
+|---|---|---|---|
+| coverage | <X>%(n=<Y>, <数据来源>) | ≥80% | ✅/❌ |
+| overreach | <Z>% | ≤10% | ✅/❌ |
+| scope_integrity | <一致/不一致> | 声称能力 ≤ 评估范围 | ✅/❌ |
+
+## V-NEG 反例验证
+| 项 | 值 | 通过 |
+|---|---|---|
+| Level | <L1/L2/L3> | — |
+| n | <数量> | ≥10 ✅/❌ |
+| hard | <0/N> | =0 ✅/❌ |
+| soft_rate / soft_count | <X>% / <N> | Level 阈值 ✅/❌ |
+
+## V-E2E 端到端验证
+| 层 | 结果 |
+|---|---|
+| hard_constraints | 全部通过 / 违反:<项> |
+| quality: correctness | <分数>/5(最低分 <X>) |
+| quality: completeness | <分数>/5(最低分 <X>) |
+| quality: actionability | <分数>/5(最低分 <X>) |
+| quality: boundary_safety | <分数>/5(最低分 <X>) |
+
+## V4 压缩保真门
+| semantic_invariant | 蒸馏前 | 蒸馏后 | 保留 |
+|---|---|---|---|
+| 条件 | ... | ... | ✅/❌ |
+| 因果方向 | ... | ... | ✅/❌ |
+| 适用对象 | ... | ... | ✅/❌ |
+| 反例 | ... | ... | ✅/❌ |
+
+## Claims 汇总
+- fidelity: <pass/conditional/fail/invalid>
+- validity: <pass/conditional/fail/invalid>
+- robustness: <pass/conditional/fail/invalid>
+- routing: <pass/conditional/fail/invalid>
+- production_readiness: <pass/conditional/fail/invalid>
+
+## 最终状态
+<VERIFIED / CONDITIONAL / REJECTED / INVALID>
+
+## 结论
+- 通过项: ...
+- 修正项: ...
+- 补入项: ...

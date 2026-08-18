@@ -1,0 +1,50 @@
+# Evidence Ledger — <Skill 名>
+
+> 版本: v1.0.0 | 蒸馏日期: <日期> | 来源书数: <N>
+
+## 核心命题
+P1: <一句话命题>
+P2: <二句话命题>
+
+## Provenance Trace(必填)
+| 来源 | 作者 | author_role | 章节 | 证据类型 | L0-L4 | evidence_strength |
+|---|---|---|---|---|---|---|
+| <书1> | <作者> | founder | Ch.X | framework | L4 | high |
+| <书2> | <作者> | integrator | Ch.Y | case | L1(引用书1) | medium |
+| <书3> | <作者> | practitioner | Ch.Z | counter-example | L4 | medium |
+
+## 独立证据链
+- 链 1: <书 A>(原始)
+- 链 2: <书 C>(独立,不同证据)
+- 传播链: <书 B>(引用 A,不独立)
+
+## 支持 / 冲突
+- 支持: <书 A> ✓ / <书 C> ✓
+- 冲突: <书 D> ✗(<冲突点>,处理: 条件化 / competing / 无法裁决)
+
+## 适用条件 / 反例
+- 适用: 在 <条件 X> 下成立
+- 不适用: <条件 Y> 下不成立
+- 反例: <书中警告的失败模式>
+
+## 验证结果
+- V-REF: supported / enhanced / conflict(权威层级来源: <evidence_hierarchy 条目>)
+- V-REAL: coverage = <X>%(n=<Y>, <数据来源类型>) / overreach = <Z>%
+- V-NEG: hard = <0|N> / soft = <X>%(Level <L>)
+- V-E2E: contract <通过/违反>(版本号)/ quality: correctness=<a>/5, completeness=<b>/5, actionability=<c>/5, boundary_safety=<d>/5
+- V4: semantic_invariants <保留/FAIL(说明)>
+- routing: accuracy=<X>%(n=<Y>) / FP=<Z>% / FN=<W>%
+- evaluator_agreement: <X>%(≥阈值 达标)
+
+## 版本历史
+### v1.0.0(<日期>) — 初始蒸馏
+- 来源: <N> 本书
+- 状态: <VERIFIED / CONDITIONAL / REJECTED>
+
+### v1.1.0(<日期>) — <变更描述>
+- 变更: <新增来源/冲突处理/边界调整>
+- 理由: <为什么改>
+- 状态: <更新后状态>
+
+## 最终状态
+<VERIFIED / CONDITIONAL / REJECTED>(+ 原因)
