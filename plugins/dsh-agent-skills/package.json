@@ -1,0 +1,25 @@
+{
+  "name": "@dsh-external/dsh-agent-skills",
+  "version": "0.1.0",
+  "description": "注册 AI Agent 知识域 16 个蒸馏 skill 为 DSH runtime skills(立即生效,不依赖文件系统发现)",
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "license": "BSD-3-Clause",
+  "peerDependencies": {
+    "cordis": ">=4.0.0-rc <5",
+    "schemastery": "^3.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "typescript": "^5.9.0"
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

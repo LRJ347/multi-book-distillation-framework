@@ -17,3 +17,7 @@ Thumbs.db
 # AI Agent 示例: 不包含书籍全文文本
 examples/ai-agent-knowledge-domain/_source/
 examples/ai-agent-knowledge-domain/scan_books_*.md
+
+# 插件 node_modules(本地 junction,不入库)
+plugins/*/node_modules/
+plugins/*/lib/types/

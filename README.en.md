@@ -86,6 +86,17 @@ step-level agreement 100%, final-state agreement 100%, zero disagreement in roun
 - Full audit trail: DOMAIN_OVERVIEW / verified (screening rationale) / V-CONFLICT (adjudications) / KNOWLEDGE_GRAPH / GLOSSARY (50 terms)
 - Status: all CONDITIONAL (structural verification PASS; upgrade to VERIFIED after real-project V-REAL/V-E2E testing)
 
+## Plugins (DeepSeek Harness)
+
+🔌 **[plugins/](plugins/)** — install the framework and distillation outputs into DSH so agents can call them natively:
+
+| Plugin | Registers | Description |
+|---|---|---|
+| `dsh-distill-framework` | `mbdf-flv` methodology skill | Agents natively gain multi-book distillation capability (three loops + four-layer verification) |
+| `dsh-agent-skills` | 16 AI Agent design skills | Distilled outputs registered directly, ready to use (orchestration/tools/context/governance) |
+
+Install: build (`bash scripts/build.sh`) then assemble via dsh-super-injector or add to profile bundles. See each plugin README.
+
 ## License
 
 MIT © 2026 LRJ347

@@ -52,3 +52,14 @@
 - 每个 skill 含四件套: SKILL.md(Skill Card + RIA++ 六段)/ test-prompts.json / EVIDENCE_LEDGER.md / 验证报告.md
 - 含完整审计链: DOMAIN_OVERVIEW / verified(筛选理由)/ V-CONFLICT(冲突裁决)/ KNOWLEDGE_GRAPH(引用图)/ GLOSSARY(50 术语)
 - 状态: 全部 CONDITIONAL(结构验证 PASS,待真实项目实测升级 VERIFIED)
+
+## 插件(DeepSeek Harness)
+
+🔌 **[plugins/](plugins/)** — 把框架与蒸馏产物装进 DSH,agent 原生可调用:
+
+| 插件 | 注册内容 | 说明 |
+|---|---|---|
+| `dsh-distill-framework` | `mbdf-flv` 方法论 skill | agent 原生具备多书融合蒸馏能力(三循环 + 四层验证) |
+| `dsh-agent-skills` | 16 个 AI Agent 设计 skill | 蒸馏产物直接注册,加载即用(编排/工具/上下文/治理) |
+
+安装: 构建(`bash scripts/build.sh`)后通过 dsh-super-injector 装配,或加入 profile bundles。详见各插件 README。
