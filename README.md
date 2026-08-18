@@ -3,6 +3,8 @@
 > **M**ulti-**B**ook **D**istillation **F**ramework with **F**our-**L**ayer **V**erification
 > 多书融合蒸馏 + 四层验证框架(元 skill,纯方法论,无领域污染)
 
+> 🌐 [English](README.en.md) | 中文
+
 ## 一句话
 
 把同领域 N 本经典书(N≥3)蒸馏成**可被 Agent 调用**的 skill 工具包,保证**可追溯、可验证、可演化、可重复**。
