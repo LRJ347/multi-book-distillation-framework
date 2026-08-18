@@ -1,0 +1,16 @@
+{
+  "skill": "agent-react-loop",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch6", "凌峰 Ch2", "尹浩 Ch6", "Fajardo Ch1/4"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "我的智能体需要先查数据库再决定下一步,怎么设计它的执行循环?", "expect": "ReAct 循环: 推理→行动(查询)→观察→再推理"},
+    {"type": "should-invoke", "prompt": "智能体只知道一次性回答,不会调用外部查询,怎么让它多步推理?", "expect": "引入 ReAct 循环 + 工具调用"},
+    {"type": "should-invoke", "prompt": "ReAct 和思维链(CoT)有什么区别,什么场景用哪个?", "expect": "选型: 需外部交互用 ReAct,纯推理用 CoT"},
+    {"type": "should-not-invoke", "prompt": "帮我总结这篇文章的要点", "expect": "不调用(纯文本任务,用 CoT)"},
+    {"type": "should-not-invoke", "prompt": "1+1 等于几", "expect": "不调用(单步问答)"},
+    {"type": "boundary", "prompt": "我的智能体没有外部工具,但任务需要多步推理,怎么办?", "expect": "降级为 CoT(无工具环境)"},
+    {"type": "boundary", "prompt": "智能体循环了 10 次还在重复查同一个东西", "expect": "检查终止条件(最大轮次)+ 观察结果是否被利用"},
+    {"type": "cross-skill", "prompt": "我的智能体要调用天气 API 获取数据", "expect": "调用 agent-tool-use(工具 schema 设计)"}
+  ]
+}

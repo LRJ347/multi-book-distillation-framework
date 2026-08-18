@@ -1,0 +1,59 @@
+{
+  "skill": "agent-guardrails",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Gulli《Agentic Design Patterns》Ch18 (L4)",
+    "Albada《Building Applications with AI Agents》Ch12 (L4)",
+    "比斯瓦斯《构建 Agentic AI 系统》Ch8-9 (L4)",
+    "Dibia《Designing Multi-Agent Systems》Ch13 (L4)",
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch8 (L4)"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我们的 agent 要上线生产环境,它能调用数据库、写文件、调外部 API,我担心它被诱导做不该做的事,这种安全防护怎么设计?",
+      "expect": "调用 agent-guardrails,推荐四道闸(输入过滤/行为约束/输出过滤/监控告警)+ 最小权限 + Rule of Two"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 同时收到一段不可信的外部输入(比如用户上传的文档)和要去执行一个高权限操作(比如删除数据库),这种组合危险吗?有什么规则能避免?",
+      "expect": "调用 agent-guardrails,核心触发 Rule of Two(不可信输入与高权限动作不同时出现,Dibia Ch13)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 输出的内容可能涉及合规问题,比如涉及法律建议、医疗建议,输出阶段怎么审核?输入也要审核吗?",
+      "expect": "调用 agent-guardrails,触发双阶段审核(预处理输入 + 后处理输出,Rothman Ch8)+ policy-driven meta-controller"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 的所有操作权限一刀切都给最高权限,这样做有什么问题?权限应该怎么分级?",
+      "expect": "调用 agent-guardrails,核心落到最小权限原则(agent 只获得任务所需权限,每权限有理由,敏感操作需审批)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我做个内部 demo,agent 只能查固定的几条数据,完全没风险,需要做护栏吗?",
+      "expect": "不调用或建议轻量(诱饵:低风险内部原型 → 轻量护栏即可,落入反场景 1)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我加了超级严格的护栏,结果 agent 什么都不能做,能力完全死掉了,这种情况怎么办?",
+      "expect": "不调用本 skill 增加护栏(诱饵:反场景 2 — 护栏过度杀死能力,需回调而非加固,这是 V4 平衡原则)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "用户上传的文档里夹了一段看起来像系统指令的内容,这种输入污染应该归谁负责?是护栏的一部分还是另一块?",
+      "expect": "边界处理:核心调用相邻 skill agent-security-prompt-injection(注入防御是护栏的输入闸),本 skill 给出整体闸门位置"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我加了护栏,但担心护栏本身被绕过(对抗攻击),这种风险怎么持续监控?",
+      "expect": "边界处理:调用本 skill 指出护栏可被绕过(semantic_invariants),需配套监控告警 + 与 agent-evaluation 组合做安全维度评估"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我想评估一下我现在的安全护栏到底覆盖够不够、有没有被绕过、边界条件有没有保护,这种评估独立做还是并入通用 agent 评估?",
+      "expect": "调用相邻 skill agent-evaluation(组合:安全评估维度)"
+    }
+  ]
+}

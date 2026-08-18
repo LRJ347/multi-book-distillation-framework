@@ -77,6 +77,15 @@ step-level agreement 100%, final-state agreement 100%, zero disagreement in roun
 
 - v2.0: runtime monitoring / drift detection / online feedback / periodic re-distillation
 
+## Real-world example
+
+📚 **[AI Agent Knowledge Domain](examples/ai-agent-knowledge-domain/)** — a complete distillation of 11 AI Agent books into 16 skills:
+
+- 5 clusters: core loops / capabilities / context / collaboration / governance (react-loop, orchestration, mcp-integration, context-engineering, guardrails, etc.)
+- Each skill ships with 4 files: SKILL.md (Skill Card + RIA++ six sections) / test-prompts.json / EVIDENCE_LEDGER.md / verification report
+- Full audit trail: DOMAIN_OVERVIEW / verified (screening rationale) / V-CONFLICT (adjudications) / KNOWLEDGE_GRAPH / GLOSSARY (50 terms)
+- Status: all CONDITIONAL (structural verification PASS; upgrade to VERIFIED after real-project V-REAL/V-E2E testing)
+
 ## License
 
 MIT © 2026 LRJ347

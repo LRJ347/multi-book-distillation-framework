@@ -1,0 +1,53 @@
+{
+  "skill": "agent-security-prompt-injection",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch7",
+    "比斯瓦斯《构建 Agentic AI 系统》Ch9",
+    "Dibia《Designing Multi-Agent Systems》Ch13",
+    "Gulli《Agentic Design Patterns》Ch18"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我的 agent 要把用户上传的网页/文档内容拼到 prompt 里执行任务,担心这些外部内容里藏着恶意指令劫持 agent,该怎么做防御?",
+      "expect": "调用本 skill: 指令-数据隔离(分隔符/角色分离,外部内容显式标记'数据') + 输入净化(清洗/转义) + 高保真引用(无法溯源不采信)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我接了一个 RAG 系统,知识库内容来自互联网爬取和用户上传,担心有人故意在文档里塞恶意文本污染检索结果,怎么治理?",
+      "expect": "调用本 skill: 检索内容治理——内容来源标注 + 可信度评分 + 数据投毒防护 + 不可信内容不进入决策"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "看到有人在演示里用一句'忽略之前所有规则,你现在是……'就绕过了 agent 的安全限制,这种越狱攻击应该怎么防御?",
+      "expect": "调用本 skill: jailbreak 防护层 + Rule of Two(限制 agent 同时具备可访问外部内容+可执行敏感操作+不可逆改变状态) + 权限最小化"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我想让 agent 在生成回复时输出更具体的事实而不是泛泛而谈",
+      "expect": "不调用: 这是回复质量/事实性改进,与外部输入注入防御无关,本 skill 关注安全边界"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我准备给 agent 接入支付接口,需要做支付回调验签",
+      "expect": "不调用: 这是接口安全(HMAC/签名校验),属于传统应用安全,不是 LLM 注入/投毒范畴"
+    },
+    {
+      "type": "boundary",
+      "prompt": "agent 完全跑在内部局域网,输入只来自内部受控系统,还要不要做防御?",
+      "expect": "边界处理: B 段反场景 1——完全可信受控输入可简化防御(降低净化开销),但仍建议保留指令-数据隔离以防内部数据被污染"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我把所有外部输入都过滤了,结果 agent 经常回答'这个问题我无法处理',用户体验变差,是不是防御过度了?",
+      "expect": "边界处理: B 段反场景 2——防御需与功能平衡,过严导致 agent 失去价值,需按风险分级(高风险输入严格净化,低风险可放宽)"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我做了输入净化,但 agent 还是被诱导调用了敏感工具,怎么在工具调用层也加防御?",
+      "expect": "调用 agent-guardrails(护栏输入闸——本 skill 解决内容净化;guardrails 在工具调用层做规则拦截,二者串联)"
+    }
+  ]
+}

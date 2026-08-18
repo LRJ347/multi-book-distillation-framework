@@ -1,0 +1,51 @@
+{
+  "skill": "agent-ux-design",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Dibia《Designing Multi-Agent Systems》Ch3/8",
+    "Albada《Building Applications with AI Agents》Ch3"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "用户面对一个多 agent 系统,不知道该让哪个 agent 处理自己的问题,有没有办法让系统先把'能做什么'展示出来?",
+      "expect": "调用本 skill: 能力发现(capability discovery)原则——UI 列出 agent 能力清单,用户按能力而非按 agent 名发起请求"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我做了一个 30 分钟的分析任务,用户在屏幕上只看到一个转圈圈,以为卡死了想关掉,怎么处理这种长任务的反馈?",
+      "expect": "调用本 skill: 流式可观测性(进度/工具调用/中间结果) + 两阶段反馈(启动即反馈 + 完成通知)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我准备把一个耗时任务交给 agent,想知道怎么在 UI 上同时告诉用户'这会花多少成本',让用户有知情权再决定要不要委托?",
+      "expect": "调用本 skill: 成本感知委派(cost-aware delegation)——委托前展示 token/时间/费用估算,用户确认后再执行"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "后端 worker 进程崩溃了,我想做健康检查和告警",
+      "expect": "不调用: 这是运维监控/可观测性,与'用户能感知到的 UI 交互'无关,本 skill 聚焦用户侧的 UX"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我有个内部 CLI 脚本批量跑 agent 任务,不需要任何界面",
+      "expect": "不调用: SKILL.md trigger.negative 已明确'无 UI 的后台 agent'/'CLI/API 内部使用'不适用"
+    },
+    {
+      "type": "boundary",
+      "prompt": "后台跑一个 5 秒就完成的小任务,还要不要做流式进度展示?",
+      "expect": "边界处理: B 段反场景 2——短任务过度设计,简单进度条即可,不必 SSE/WebSocket 流式架构"
+    },
+    {
+      "type": "boundary",
+      "prompt": "用户中途想换思路让 agent 走别的方向,UI 上应该怎么支持?",
+      "expect": "边界处理: interruptibility 原则——UI 提供停止/调整控件,但同时需与 agent-human-in-the-loop 配合处理'高风险调整'的人工确认"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我的多 agent 系统已经设计好编排,但用户看不到谁在干活、干到哪一步,如何在编排基础上加 UX 层?",
+      "expect": "调用 agent-orchestration(编排产生 UX 数据) + 本 skill(把编排事件流式展示成 UI)"
+    }
+  ]
+}

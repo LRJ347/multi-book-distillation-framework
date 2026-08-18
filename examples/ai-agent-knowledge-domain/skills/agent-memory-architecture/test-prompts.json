@@ -1,0 +1,16 @@
+{
+  "skill": "agent-memory-architecture",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch8", "Albada Ch6", "尹浩 Ch5", "Fajardo Ch7", "Dibia Ch4"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "智能体每次对话都忘记用户上次的偏好,怎么让它记住?", "expect": "设计长期记忆(显式存储)+ 写入/检索策略"},
+    {"type": "should-invoke", "prompt": "对话越长越贵越慢,怎么控制上下文?", "expect": "压缩策略(Summarizer/摘要)+ token 预算"},
+    {"type": "should-invoke", "prompt": "智能体记的东西是错的/过期的,怎么处理?", "expect": "记忆淘汰/更新机制(防污染)"},
+    {"type": "should-not-invoke", "prompt": "帮我写一个冒泡排序", "expect": "不调用(无状态单次任务)"},
+    {"type": "should-not-invoke", "prompt": "解释相对论", "expect": "不调用(无记忆需求)"},
+    {"type": "boundary", "prompt": "我的任务只需要一次会话,不跨会话,需要记忆系统吗?", "expect": "不需要长期记忆,短期上下文窗口即可"},
+    {"type": "boundary", "prompt": "记忆里存了敏感用户信息,怎么保护?", "expect": "记忆加密/脱敏 + 访问控制(结合 guardrails)"},
+    {"type": "cross-skill", "prompt": "智能体要基于文档知识回答问题", "expect": "调用 agent-rag(检索增强)或 agent-context-engineering"}
+  ]
+}

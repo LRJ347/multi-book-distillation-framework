@@ -1,0 +1,53 @@
+{
+  "skill": "agent-failure-recovery",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Gulli《Agentic Design Patterns》Ch12",
+    "Fajardo《Build a Multi-Agent System》Ch4",
+    "Albada《Building Applications with AI Agents》Ch10",
+    "Dibia《Designing Multi-Agent Systems》Ch7"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我的 agent 调用外部 API 经常因为网络抖动超时,该设几次重试、用什么退避策略?还要不要做幂等性检查?",
+      "expect": "调用本 skill: 错误分类(瞬时错误可重试) + 重试策略(次数+指数退避) + 幂等性检查,避免重试放大故障"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我有个长任务跑了 40 分钟,中途程序崩溃了,全部重来用户抱怨,该怎么做断点续做?",
+      "expect": "调用本 skill: checkpoint 设计——状态可保存/恢复 + 结构哈希校验(检查点有效性)+ 失败后从最近良好状态重启"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 反复在同一个错误上来回调用同一个工具,token 烧光了任务还没进展,怎么阻止它死循环?",
+      "expect": "调用本 skill: 终止条件——max rounds / max tokens / 目标达成检测 + 检测到重复错误模式强制退出"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我想给 agent 加一个 web 搜索工具,让它能查最新资料",
+      "expect": "不调用: 这是新增工具能力,与失败恢复无关,本 skill 关注的是工具失败之后的处理"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "希望 agent 的回答风格更友好一点,语气温和一些",
+      "expect": "不调用: 这是 prompt 风格调整,与异常处理/恢复机制无关"
+    },
+    {
+      "type": "boundary",
+      "prompt": "用户在用户输入了一个完全不存在的城市名,天气查询 API 返回 404,应该一直重试吗?",
+      "expect": "边界处理: 不可恢复错误(数据问题/4xx 业务错误)不应重试,B 段反场景 1 警告'不可恢复错误强行重试浪费时间',应明确告知用户"
+    },
+    {
+      "type": "boundary",
+      "prompt": "支付类接口本身不幂等,但工具调用失败了我想自动重试,会有什么问题?",
+      "expect": "边界处理: B 段反场景 2 警告——非幂等重试会放大故障造成数据问题,要么先做幂等化要么不允许自动重试,需明确告知用户风险"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我的 agent 用 ReAct 循环跑任务,经常到第 30 轮还在原地打转,我该在哪里加终止条件?",
+      "expect": "调用 agent-react-loop(循环机制) + 本 skill(在循环里注入终止条件 max rounds/token/目标达成检测)"
+    }
+  ]
+}

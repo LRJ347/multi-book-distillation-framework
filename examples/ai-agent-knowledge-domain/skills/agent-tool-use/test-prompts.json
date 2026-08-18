@@ -1,0 +1,16 @@
+{
+  "skill": "agent-tool-use",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch5", "Albada Ch4", "尹浩 Ch6", "Fajardo Ch2/5", "Dibia Ch4"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "我要让智能体调用内部 API,怎么把 API 封装成它能用的工具?", "expect": "工具 schema 设计: 名称/描述/参数最小化"},
+    {"type": "should-invoke", "prompt": "智能体老是调错工具或传错参数,怎么排查?", "expect": "检查工具描述清晰度与参数 schema(描述是选择依据)"},
+    {"type": "should-invoke", "prompt": "工具太多了智能体选不过来怎么办?", "expect": "工具分组/路由/按需暴露"},
+    {"type": "should-not-invoke", "prompt": "帮我写一篇 800 字文章", "expect": "不调用(纯生成任务)"},
+    {"type": "should-not-invoke", "prompt": "解释量子纠缠", "expect": "不调用(知识问答)"},
+    {"type": "boundary", "prompt": "工具调用失败返回了错误,怎么处理?", "expect": "错误处理: 重试/降级(结合 agent-failure-recovery)"},
+    {"type": "boundary", "prompt": "工具能执行危险操作(删文件/付款),怎么限制?", "expect": "权限控制: 最小权限+审批(结合 agent-guardrails)"},
+    {"type": "cross-skill", "prompt": "我的智能体要接入第三方工具生态", "expect": "调用 agent-mcp-integration(MCP 协议)"}
+  ]
+}

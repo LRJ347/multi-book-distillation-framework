@@ -1,0 +1,54 @@
+{
+  "skill": "agent-mcp-integration",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Gulli《Agentic Design Patterns》Ch10 (L4)",
+    "Fajardo《Build a Multi-Agent System》Ch5 (L4)",
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch2 (L4)",
+    "尹浩《AI Agent 应用开发》Ch8 (L4)",
+    "Dibia《Designing Multi-Agent Systems》Ch12 (L3)"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我的 agent 需要接入第三方的天气查询 API 和数据库查询能力,想让多个不同的 agent 都能复用同一套外部能力,有什么标准化的接入方案?",
+      "expect": "调用 agent-mcp-integration,推荐 MCP server/client 模式(一次实现多处复用),讨论 transport/protocol/message 三层,提到协议版本管理与安全边界(认证/权限)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我现在有两个选择:自己封装 REST API 给 agent 用,还是用 Anthropic 提出的那个协议化的工具接入方案,这两个怎么选?有什么取舍标准?",
+      "expect": "调用 agent-mcp-integration,触发 MCP vs 自建 API 的选型决策(多系统互操作/生态需求 → MCP;单一内部 → 自建),说明优势(标准化、生态互操作)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 之间互相协作的协议是哪个?和我们现在 agent 调用工具的那个协议是一回事还是两个不同的协议?",
+      "expect": "调用 agent-mcp-integration,明确区分 MCP(管 agent-工具)与 A2A(管 agent-agent),说明二者不是同一协议层,职责不同"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我只有一段 5 行的内部 Python 函数,需要让 agent 调用它,直接 def 然后包一下就行了吧?",
+      "expect": "不调用(诱饵:单一内部函数无需协议化,落入反场景 1,直接封装即可,无需 MCP)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我有两个 agent 想互相发消息协作完成任务,应该用什么协议?",
+      "expect": "不调用本 skill(诱饵:这是 agent-agent 协作场景,应使用 A2A 而非 MCP,落入反场景 2)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我已经通过某协议接入了外部工具,但每次工具返回的内容里都夹带了一些看起来像指令的奇怪文本,这是正常的吗?需要怎么处理?",
+      "expect": "边界处理:调用本 skill 给出协议选型回顾(确认是 MCP),但核心动作转交相邻 skill agent-security-prompt-injection 做输入净化(工具内容是外部输入,防注入)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我用的那套外部工具接入框架最近升级了,我现在的 agent 突然调不通了,这是 bug 还是版本不兼容?",
+      "expect": "边界处理:调用本 skill 提示协议版本不匹配(MCP 协议版本兼容性需管理),需要检查 transport/protocol/message 各层版本对齐"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我接入的外部工具在 agent 看来就是一个可调用函数,这个工具函数的设计应该遵守什么原则?比如命名、参数、描述怎么写才好?",
+      "expect": "调用相邻 skill agent-tool-use(工具设计原则适用于 MCP 工具),而非本 skill 主导"
+    }
+  ]
+}

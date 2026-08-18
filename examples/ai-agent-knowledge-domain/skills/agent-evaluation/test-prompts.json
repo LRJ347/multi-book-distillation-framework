@@ -1,0 +1,58 @@
+{
+  "skill": "agent-evaluation",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Gulli《Agentic Design Patterns》Ch19 (L4)",
+    "Albada《Building Applications with AI Agents》Ch9-11 (L4)",
+    "Dibia《Designing Multi-Agent Systems》Ch10 (L4)",
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch10 (L3)"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我们的 agent 要上线了,怎么在生产前系统验证它到底能不能用?需要建什么基准、什么指标?",
+      "expect": "调用 agent-evaluation,触发评估先行 + 测试集 + gold labels + 多维度评分(正确性/完整性/可操作性/边界安全)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 在某些特定任务上总是搞砸,但我们不知道到底是规划错了、工具调错了、还是最后总结错了,怎么定位失败根因?",
+      "expect": "调用 agent-evaluation,核心触发 trajectory-based evaluation(记录 plan/tool-call/result,定位'在哪一步失败'而非'是否失败')"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我们想确认到底是用单个大模型直接答更好,还是搞多 agent 协作更好,有办法做实证对比吗?还是只能拍脑袋?",
+      "expect": "调用 agent-evaluation,触发 Direct-Model vs Multi-Agent 实证对比(避免想当然,Dibia Ch10 实证:简单推理单模型更优)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "agent 上线一段时间了感觉效果变差了,但用户没有明确投诉,这种情况怎么发现和监控?",
+      "expect": "调用 agent-evaluation,触发生产监控(分布漂移/失败模式/可观测),持续过程非一次性"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我还在原型阶段,随便试试看效果,需要做评估吗?",
+      "expect": "不调用(诱饵:原型探索阶段,落入负触发)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我做个一次性的 demo 演示给老板看,就用一次,需要评估体系吗?",
+      "expect": "不调用(诱饵:一次性 demo,落入负触发)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我们评估只测了顺利的情况,没测异常路径,这种评估靠不靠谱?",
+      "expect": "边界处理:调用本 skill 指出只测 happy path 漏失败模式(落入反场景 2),需补充边界/失败场景"
+    },
+    {
+      "type": "boundary",
+      "prompt": "agent 完成一步后自我反思一次修正答案,这种算'评估'吗?和系统化的评估有什么差别?",
+      "expect": "边界处理:核心调用相邻 skill agent-reflection-loop(单次反思 vs 系统评估),本 skill 负责系统性基准/轨迹/监控"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我想重点评估 agent 在安全性维度上的表现——比如会不会泄露隐私、会不会被诱导越权,这种安全评估独立做还是和通用评估一起做?",
+      "expect": "调用相邻 skill agent-guardrails(组合:安全评估维度)"
+    }
+  ]
+}

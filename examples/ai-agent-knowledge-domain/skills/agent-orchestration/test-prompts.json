@@ -1,0 +1,16 @@
+{
+  "skill": "agent-orchestration",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch7", "Albada Ch8", "比斯瓦斯 Ch6", "Dibia Ch2/6/7", "尹浩 Ch7", "Wooldridge Ch8"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "我的任务需要多个 AI 角色协作完成,比如一个负责收集资料一个负责分析,该怎么设计协作架构?", "expect": "进入编排设计: 判断多 agent 必要性→选拓扑→设计角色→协调机制"},
+    {"type": "should-invoke", "prompt": "多 agent 系统里两个 agent 互相等待卡死了,怎么解决?", "expect": "检查协调机制与冲突解决(Contract Net/死锁检测)"},
+    {"type": "should-invoke", "prompt": "该用单 agent 还是多 agent?我的任务只是把一段文字翻译成英文。", "expect": "判断为简单任务→建议单 agent(x13 过度工程)"},
+    {"type": "should-not-invoke", "prompt": "帮我写一段 Python 排序代码", "expect": "不调用(纯代码生成,非编排)"},
+    {"type": "should-not-invoke", "prompt": "解释一下什么是贝叶斯定理", "expect": "不调用(知识问答)"},
+    {"type": "boundary", "prompt": "我的多 agent 系统有 3 个 agent 做数据流水线,每个步骤固定,要保证可恢复可观测。", "expect": "workflow(确定性)拓扑 + checkpoint 恢复"},
+    {"type": "boundary", "prompt": "多 agent 系统处理动态变化的用户请求,无法预知步骤。", "expect": "autonomous(orchestrator 循环)+ 终止条件"},
+    {"type": "cross-skill", "prompt": "我的 agent 要调用外部天气 API,怎么接入?", "expect": "调用 agent-mcp-integration / agent-tool-use"}
+  ]
+}

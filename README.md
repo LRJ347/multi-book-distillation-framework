@@ -43,3 +43,12 @@
 - 架构: 冻结 ✅
 - 评估协议: v1.1.7 CLOSED ✅(4 轮盲态验证: 16 案例 × 8 评估员 × 128 判定点)
 - 后续(v2.0): 运行期监控 / 漂移检测 / 在线反馈 / 周期性重蒸馏
+
+## 实际应用示例
+
+📚 **[AI Agent 知识域](examples/ai-agent-knowledge-domain/)** — 11 本 AI Agent 书籍 → 16 个 skill 的完整蒸馏产物:
+
+- 覆盖: 核心循环 / 能力 / 上下文 / 协作 / 治理 五簇(react-loop、orchestration、mcp-integration、context-engineering、guardrails 等)
+- 每个 skill 含四件套: SKILL.md(Skill Card + RIA++ 六段)/ test-prompts.json / EVIDENCE_LEDGER.md / 验证报告.md
+- 含完整审计链: DOMAIN_OVERVIEW / verified(筛选理由)/ V-CONFLICT(冲突裁决)/ KNOWLEDGE_GRAPH(引用图)/ GLOSSARY(50 术语)
+- 状态: 全部 CONDITIONAL(结构验证 PASS,待真实项目实测升级 VERIFIED)

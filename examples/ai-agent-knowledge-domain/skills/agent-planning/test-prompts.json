@@ -1,0 +1,16 @@
+{
+  "skill": "agent-planning",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch6", "Albada Ch5", "尹浩 Ch6", "Dibia Ch2", "Fajardo Ch1"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "我的任务有 20 个步骤,智能体边想边做很乱,怎么改进?", "expect": "Plan-and-Execute: 先规划再逐步执行"},
+    {"type": "should-invoke", "prompt": "执行过程中环境变了,原计划失效怎么办?", "expect": "重规划策略(触发条件+动态调整)"},
+    {"type": "should-invoke", "prompt": "planning 和 CoT 有什么区别?", "expect": "planning 产出可执行步骤,CoT 产出推理过程"},
+    {"type": "should-not-invoke", "prompt": "帮我翻译这句话", "expect": "不调用(单步任务)"},
+    {"type": "should-not-invoke", "prompt": "什么是递归", "expect": "不调用(知识问答)"},
+    {"type": "boundary", "prompt": "任务只有 2 步,需要规划吗?", "expect": "不需要,直接执行(简单任务)"},
+    {"type": "boundary", "prompt": "环境变化极快,计划刚生成就失效", "expect": "考虑 ReAct(边想边做)替代,或分层重规划"},
+    {"type": "cross-skill", "prompt": "多个智能体分别执行计划的不同部分", "expect": "调用 agent-orchestration(多 agent 编排)"}
+  ]
+}

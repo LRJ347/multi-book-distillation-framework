@@ -1,0 +1,58 @@
+{
+  "skill": "agent-context-engineering",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch1-6 (L4)",
+    "尹浩《AI Agent 应用开发》Ch4/5 (L4)",
+    "Albada《Building Applications with AI Agents》Ch6 (L4)",
+    "Dibia《Designing Multi-Agent Systems》Ch11 (L3)"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我做的多 agent 系统每个任务都要塞大量历史信息进去,token 账单越来越高,而且一长就超窗口,有什么系统化的信息管理架构吗?",
+      "expect": "调用 agent-context-engineering,推荐 Glass-Box Context Engine(Planner/Executor/Tracer/AgentRegistry)+ Summarizer + token 预算显式管理"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我们生产环境的 agent 出问题时不知道它当时看到了什么信息、为什么那样决策,完全是个黑盒,怎么能让上下文流转可追溯?",
+      "expect": "调用 agent-context-engineering,核心落到 Tracer/flight recorder + 上下文是资产不是临时拼接(可审计性)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我想做一个通用的 agent 工作流引擎,一个领域跑通了想换到营销领域继续用,而不是每个领域重写一套,这种领域无关的架构怎么设计?",
+      "expect": "调用 agent-context-engineering,推荐 Rothman Glass-Box Context Engine(领域无关性,NASA 研究助手复用至营销领域证明)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "多 agent 之间的信息怎么传递?agent A 做完一步的结果怎么结构化地交给 agent B,而不是临时拼一段字符串塞进去?",
+      "expect": "调用 agent-context-engineering,触发 Context Chaining(步骤间结构化传递)+ Semantic Blueprint(SRL 蓝图)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "用户就问了一句'你好',agent 回一句'你好',这种短对话需要上下文架构吗?",
+      "expect": "不调用(诱饵:短对话无上下文压力,落入反场景 1,无需完整架构)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我只想让模型根据用户一句话生成一段回复,单 prompt 调用,这种场景需要上下文工程吗?",
+      "expect": "不调用(诱饵:单 prompt 无需上下文架构,落入负触发)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我做了上下文压缩,但用户反馈说压缩后 agent 答错了关键事实,好像是压缩过程把重要信息丢了,这种取舍怎么把握?",
+      "expect": "边界处理:调用本 skill 指出违反 V4(semantic_invariants:压缩不得丢失语义不变量),需检查 Summarizer 是否保真/是否需要分级压缩"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我想给 agent 加记忆,让它跨会话记得用户偏好,这个是上下文工程还是另一块?",
+      "expect": "边界处理:核心调用相邻 skill agent-memory-architecture(记忆是上下文的持久层),上下文工程负责会话内结构化"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我已经把上下文结构管理好了,现在想评估上下文的质量——比如压缩后是否保真、注入是否冗余,这种评估该怎么设计?",
+      "expect": "调用相邻 skill agent-evaluation(组合:上下文质量需评估)"
+    }
+  ]
+}

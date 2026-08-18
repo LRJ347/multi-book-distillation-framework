@@ -1,0 +1,51 @@
+{
+  "skill": "agent-multi-agent-theory",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Wooldridge《An Introduction to MultiAgent Systems》Ch2-17",
+    "比斯瓦斯《构建 Agentic AI 系统》Ch2/6"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我设计了一组会互相争抢同一个任务槽的智能体,经常出现重复领取,有什么经典的分配机制可以参考?",
+      "expect": "调用本 skill: 引入 Contract Net 招标-投标-中标协议,或简单场景用 orchestrator 集中分配"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "多智能体之间需要交换消息来协商,但每家厂商的术语表不一样导致互相误解,该按哪套通信语义来对齐?",
+      "expect": "调用本 skill: 引入言语行为理论 + 共享本体/术语表 + KQML/FIPA ACL 语义层,映射为现代 A2A"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我希望多个 agent 在资源有限时通过竞价方式分配,如何设计才能避免它们策略性操纵报价、保证分配结果稳定?",
+      "expect": "调用本 skill: 引入机制设计(VCG/Vickrey),强调激励相容——诚实报价是最优策略"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我想让一个 agent 加上记忆和工具调用循环,把多轮思考做得更稳",
+      "expect": "不调用: 这是单 agent 的 ReAct 循环强化,与多智能体间通信/分配/激励无关"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我只有一个对话机器人要接入外部知识库做检索增强,有什么建议?",
+      "expect": "不调用: 单一 agent + RAG,不是多 agent 交互场景,不需要 MAS 理论"
+    },
+    {
+      "type": "boundary",
+      "prompt": "系统里只有两个 agent,而且只是顺序调用、没有竞争或协商,这也算多智能体吗?",
+      "expect": "边界处理: 简单两 agent 无竞争属 SKILL.md negative 触发,理论框架过重,建议直接用编排/工作流即可"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我想给 LLM agent 上 VCG 拍卖机制,会不会太重?",
+      "expect": "边界处理: B 段反场景 2 警告——复杂机制对 LLM 过重,需轻量适配(简化拍卖/近似 VCG),而非直接搬经典"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "理论上看明白了 Contract Net 和 VCG,接下来该用什么工程模式把它落到代码里?",
+      "expect": "调用 agent-orchestration: 把理论锚点映射为编排工程(announce-bid-award → orchestrator + worker + 任务队列)"
+    }
+  ]
+}

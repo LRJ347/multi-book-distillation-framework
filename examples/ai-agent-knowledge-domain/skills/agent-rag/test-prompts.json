@@ -1,0 +1,58 @@
+{
+  "skill": "agent-rag",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Rothman《Context Engineering for Multi-Agent Systems》Ch3/7 (L4)",
+    "Albada《Building Applications with AI Agents》Ch6 (L4)",
+    "尹浩《AI Agent 应用开发》Ch4 (L4)",
+    "凌峰《AI Agent 开发与应用》Ch4 (L3)"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我们公司有一堆产品手册和技术文档,想让 agent 在回答客户问题时去查这些文档给出准确答案,而且每条事实都要能追溯到原文出处,这种怎么做?",
+      "expect": "调用 agent-rag,推荐 High-fidelity RAG(每条事实带 source citation),管道:加载→转换→嵌入→存储→检索→生成"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我有个知识库,里面既有'怎么操作某个流程'的步骤性内容,也有'某参数是多少'的事实性内容,现在混在一起检索效果很差,有什么分开的方案吗?",
+      "expect": "调用 agent-rag,推荐 Dual RAG(procedural 流程知识 + factual 事实知识双源分离,Rothman Ch3)"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "用户问我们 agent 一些专业领域问题,它经常一本正经地胡说八道编造答案,怎么解决这个幻觉问题?",
+      "expect": "调用 agent-rag,触发幻觉根因(无来源断言),用高保真 RAG + 来源标注让每条事实可溯源"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "我想让 agent 自己决定什么时候去查知识库、查什么、查几次,而不是每次都固定先检索一次再回答,这种更自主的检索模式怎么设计?",
+      "expect": "调用 agent-rag,触发 agentic RAG(检索作为工具,agent 自主决定何时检索/检索什么)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我让 agent 写一首关于春天的诗,这种通用知识模型自己就有,需要接外部知识库吗?",
+      "expect": "不调用(诱饵:知识在模型参数内即可,落入反场景 1,无需 RAG)"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "用户偶尔问一些不太重要的常识问题,回答错了也没关系,需要建知识库吗?",
+      "expect": "不调用(诱饵:无引用要求的低风险问答 → 普通 RAG 都不必,落入反场景 2)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我建了个知识库,后来发现里面某些文档被注入了一些恶意内容,检索时把恶意指令带了进来影响 agent,这种情况怎么处理?",
+      "expect": "边界处理:核心调用相邻 skill agent-security-prompt-injection 做输入净化 + 来源验证(检索内容不可直接信任,防投毒)"
+    },
+    {
+      "type": "boundary",
+      "prompt": "我检索到的内容需要拼到 agent 的 prompt 里,这部分的上下文结构怎么管?是不是和上下文工程有关?",
+      "expect": "边界处理:核心调用相邻 skill agent-context-engineering(组合:检索内容注入上下文),本 skill 负责检索质量与溯源"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我已经把 RAG 检索部分做完了,现在想知道检索质量好不好、agent 用检索内容回答的准确性怎么样,这种评估应该怎么搞?",
+      "expect": "调用相邻 skill agent-evaluation(检索质量决定生成质量,需评估)"
+    }
+  ]
+}

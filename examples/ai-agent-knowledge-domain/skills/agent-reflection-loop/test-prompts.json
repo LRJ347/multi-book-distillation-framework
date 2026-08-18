@@ -1,0 +1,16 @@
+{
+  "skill": "agent-reflection-loop",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": ["Gulli Ch4", "比斯瓦斯 Ch4", "尹浩 Ch6", "Dibia Ch7"],
+  "tests": [
+    {"type": "should-invoke", "prompt": "智能体生成的代码有 bug 但不知道哪里错,怎么改进?", "expect": "反思循环: 生成→评估→修正,可加批评者"},
+    {"type": "should-invoke", "prompt": "怎么让写作智能体的输出更符合要求?", "expect": "反思循环 + 明确评估标准"},
+    {"type": "should-invoke", "prompt": "反思循环会不会太慢太贵?", "expect": "设迭代上限(默认3轮),按任务价值权衡"},
+    {"type": "should-not-invoke", "prompt": "帮我查一下明天的天气", "expect": "不调用(简单查询)"},
+    {"type": "should-not-invoke", "prompt": "什么是光合作用", "expect": "不调用(知识问答)"},
+    {"type": "boundary", "prompt": "任务没有客观评估标准,怎么反思?", "expect": "用外部批评者/专家评估"},
+    {"type": "boundary", "prompt": "反思了 5 轮越改越差", "expect": "停止迭代(上限),保留最好版本"},
+    {"type": "cross-skill", "prompt": "怎么系统评估智能体整体表现?", "expect": "调用 agent-evaluation(轨迹评估)"}
+  ]
+}

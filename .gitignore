@@ -13,3 +13,7 @@ Thumbs.db
 # 临时
 *.tmp
 *.bak
+
+# AI Agent 示例: 不包含书籍全文文本
+examples/ai-agent-knowledge-domain/_source/
+examples/ai-agent-knowledge-domain/scan_books_*.md

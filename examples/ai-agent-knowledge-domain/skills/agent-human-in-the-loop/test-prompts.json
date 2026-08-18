@@ -1,0 +1,53 @@
+{
+  "skill": "agent-human-in-the-loop",
+  "version": "1.0.0",
+  "level": "L2",
+  "sources": [
+    "Gulli《Agentic Design Patterns》Ch13",
+    "Fajardo《Build a Multi-Agent System》Ch8",
+    "Albada《Building Applications with AI Agents》Ch13",
+    "Dibia《Designing Multi-Agent Systems》Ch3"
+  ],
+  "tests": [
+    {
+      "type": "should-invoke",
+      "prompt": "我准备让一个自动化代理代我执行对外付款,担心误操作,应该在哪里设置人工确认环节?",
+      "expect": "调用本 skill: 高风险决策点嵌入审批 checkpoint,设计审批人/审批方式/超时处理/可回退"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "代理在执行链路里卡住了需要等待用户输入,如何设计这种中途确认的交互模式?",
+      "expect": "调用本 skill: 设计暂停点/审批流,明确可中断、可回退、用户随时取消"
+    },
+    {
+      "type": "should-invoke",
+      "prompt": "在医疗/法律这类高风险业务里,我该如何判断哪些步骤必须保留人工判断、哪些可以放手让代理自主执行?",
+      "expect": "调用本 skill: 风险分级清单 + 暂停点选择 + 回环密度平衡"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "我想给 agent 加输入内容审核的规则拦截,把不合规输入直接挡在外面",
+      "expect": "不调用: 这是规则自动拦截,属于护栏范畴,不是人工确认点"
+    },
+    {
+      "type": "should-not-invoke",
+      "prompt": "希望 agent 在执行工具时遇到网络抖动自动重试几次,避免每次失败都要求用户决定",
+      "expect": "不调用: 这是失败重试与降级,属于异常恢复策略,不是人工回环"
+    },
+    {
+      "type": "boundary",
+      "prompt": "一个内部通知类低风险任务,要不要也加人工审批?加多了会不会让流程反而更慢?",
+      "expect": "边界处理: 低风险任务过度回环会让自动化价值丧失,需以风险分级过滤而非一刀切"
+    },
+    {
+      "type": "boundary",
+      "prompt": "用户明确要求全自动化、不要任何弹窗确认,该按用户意图办还是坚持人工把关?",
+      "expect": "边界处理: 用户明确要全自动时遵循用户意图,但高风险场景下需提示不可全自动,否则属高风险决策不能接受"
+    },
+    {
+      "type": "cross-skill",
+      "prompt": "我希望代理在多个子任务之间按 workflow 串起来,并且每个高风险节点保留人工审批,这种组合怎么落?",
+      "expect": "调用 agent-orchestration(负责多 agent 流程串联) + 本 skill(在编排节点上嵌入人工确认点)"
+    }
+  ]
+}
