@@ -1,0 +1,30 @@
+﻿{
+    "name":  "@dsh-external/dsh-minimax-h3-batch",
+    "version":  "0.0.1",
+    "description":  "MiniMax H3 批量口播视频生成流水线：批量导入图片+提示词 → 自动分镜 → 按顺序调用官方 API 生成 → 按顺序批量导出",
+    "private":  true,
+    "type":  "module",
+    "main":  "./lib/index.js",
+    "types":  "./lib/types/index.d.ts",
+    "files":  [
+                  "lib"
+              ],
+    "license":  "BSD-3-Clause",
+    "peerDependencies":  {
+                             "@deepseek-ai/dsh-llm":  "\u003e=0.0.1-rc \u003c2",
+                             "@deepseek-ai/dsh-tools":  "\u003e=0.0.1-rc \u003c2",
+                             "cordis":  "\u003e=4.0.0-rc \u003c5",
+                             "schemastery":  "^3.18.0"
+                         },
+    "devDependencies":  {
+                            "@types/node":  "^24.13.3",
+                            "typescript":  "^5.9.0"
+                        },
+    "scripts":  {
+                    "build":  "bash scripts/build.sh",
+                    "typecheck":  "tsc -p tsconfig.json --noEmit"
+                },
+    "dsh":  {
+                "bundle":  "./lib/index.js"
+            }
+}
