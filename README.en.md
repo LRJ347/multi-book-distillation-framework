@@ -94,6 +94,9 @@ step-level agreement 100%, final-state agreement 100%, zero disagreement in roun
 |---|---|---|
 | `dsh-distill-framework` | `mbdf-flv` methodology skill | Agents natively gain multi-book distillation capability (three loops + four-layer verification) |
 | `dsh-agent-skills` | 16 AI Agent design skills | Distilled outputs registered directly, ready to use (orchestration/tools/context/governance) |
+| `dsh-minimax-vision` | MiniMax vision tool | Local image/URL recognition via MiniMax-VL-01 (vision enhancement) |
+
+> ⚠️ **Plugin rule**: every custom plugin package.json MUST include `dsh.bundle` (entry pointer), otherwise adding it to bundles crashes DSH startup. All plugins have been fixed. See [TROUBLESHOOTING_BUNDLE_MISSING_DSH_BUNDLE.md](plugins/TROUBLESHOOTING_BUNDLE_MISSING_DSH_BUNDLE.md).
 
 Install: build (`bash scripts/build.sh`) then assemble via dsh-super-injector or add to profile bundles. See each plugin README.
 

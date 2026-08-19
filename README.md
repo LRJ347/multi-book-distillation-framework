@@ -61,5 +61,8 @@
 |---|---|---|
 | `dsh-distill-framework` | `mbdf-flv` 方法论 skill | agent 原生具备多书融合蒸馏能力(三循环 + 四层验证) |
 | `dsh-agent-skills` | 16 个 AI Agent 设计 skill | 蒸馏产物直接注册,加载即用(编排/工具/上下文/治理) |
+| `dsh-minimax-vision` | MiniMax 视觉理解工具 | 本地图片/URL 交给 MiniMax-VL-01 识别(视觉增强) |
+
+> ⚠️ **插件规范**: 所有自定义插件 package.json **必须含 `dsh.bundle`**(指向入口),否则加入 bundles 会导致 DSH 启动崩溃。已对全部插件补齐。详见 [TROUBLESHOOTING_BUNDLE_MISSING_DSH_BUNDLE.md](plugins/TROUBLESHOOTING_BUNDLE_MISSING_DSH_BUNDLE.md)。
 
 安装: 构建(`bash scripts/build.sh`)后通过 dsh-super-injector 装配,或加入 profile bundles。详见各插件 README。

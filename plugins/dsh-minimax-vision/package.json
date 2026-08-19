@@ -1,0 +1,30 @@
+﻿{
+    "name":  "@dsh-external/dsh-minimax-vision",
+    "version":  "0.0.1",
+    "description":  "MiniMax 视觉理解：把本地图片/URL 交给 MiniMax-VL-01 识别，返回文字描述",
+    "private":  true,
+    "type":  "module",
+    "main":  "./lib/index.js",
+    "types":  "./lib/types/index.d.ts",
+    "files":  [
+                  "lib"
+              ],
+    "license":  "BSD-3-Clause",
+    "peerDependencies":  {
+                             "@deepseek-ai/dsh-llm":  "\u003e=0.0.1-rc \u003c2",
+                             "@deepseek-ai/dsh-tools":  "\u003e=0.0.1-rc \u003c2",
+                             "cordis":  "\u003e=4.0.0-rc \u003c5",
+                             "schemastery":  "^3.18.0"
+                         },
+    "devDependencies":  {
+                            "@types/node":  "^24.13.3",
+                            "typescript":  "^5.9.0"
+                        },
+    "scripts":  {
+                    "build":  "bash scripts/build.sh",
+                    "typecheck":  "tsc -p tsconfig.json --noEmit"
+                },
+    "dsh":  {
+                "bundle":  "./lib/index.js"
+            }
+}
