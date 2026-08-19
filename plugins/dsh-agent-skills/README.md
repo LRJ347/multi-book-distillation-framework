@@ -36,6 +36,29 @@ DSH_CHECKOUT=C:/path/to/deepseek-harness bash scripts/build.sh
 
 任意位置有完整 16 个 skill 目录即可。更新 skill 内容后执行 `dev_reload_package dsh-agent-skills` 热刷新。
 
+## ⚠️ DSH 插件规范(dsh.bundle 必填)
+
+> 故障教训(2026-08-18): 插件曾因 package.json 缺失 `dsh.bundle` 导致 DSH 启动崩溃
+> (`declares no dsh.bundle in its package.json`),启动回退自动将其从 bundles 剔除,
+> 所有 skill 从 catalog 消失。修复: 补上 `dsh.bundle` 后重启 autoRestore 恢复。
+
+**规则**: 任何要加入 profile bundles 的自定义插件,package.json **必须**包含:
+
+```json
+{
+  "name": "@dsh-external/your-plugin",
+  "main": "./lib/index.js",
+  "dsh": {
+    "bundle": "./lib/index.js"
+  }
+}
+```
+
+- `dsh.bundle` 指向插件入口(通常与 `main` 相同)
+- 缺失 → 启动报错 → 插件被回退剔除 → 依赖它的能力全部消失
+- 修复优先级:**补 dsh.bundle 修复插件本身**,而非删除 bundles 配置
+- 用 `dsh plugin add` / super-injector 装配会自动校验;手改 package.json 时务必自查
+
 ## 卸载
 
 ```bash

@@ -37,6 +37,28 @@ DSH_CHECKOUT=C:/path/to/deepseek-harness bash scripts/build.sh
 2. 阶段 0 产出 DOMAIN_OVERVIEW → 用户确认
 3. 5 extractor 并行提取 → 三重筛选 → RIA++ 构造 → 四层验证 → 交付
 
+## ⚠️ DSH 插件规范(dsh.bundle 必填)
+
+> 故障教训(2026-08-18): 与本仓库 dsh-agent-skills 同批事故——package.json 缺
+> `dsh.bundle` 导致 DSH 启动崩溃、插件被回退剔除、skill catalog 清空。
+> 修复后已沉淀为规范(详见 dsh-agent-skills/README.md 同节)。
+
+**规则**: 任何要加入 profile bundles 的自定义插件,package.json **必须**包含:
+
+```json
+{
+  "name": "@dsh-external/your-plugin",
+  "main": "./lib/index.js",
+  "dsh": {
+    "bundle": "./lib/index.js"
+  }
+}
+```
+
+- `dsh.bundle` 指向插件入口(通常与 `main` 相同)
+- 缺失 → 启动报错(`declares no dsh.bundle`)→ 插件被回退剔除
+- 修复优先级:**补 dsh.bundle 修复插件本身**,而非删除 bundles 配置
+
 ## 卸载
 
 ```bash
