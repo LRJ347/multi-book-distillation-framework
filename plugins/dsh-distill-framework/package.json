@@ -1,25 +1,28 @@
-{
-  "name": "@dsh-external/dsh-distill-framework",
-  "version": "1.1.7",
-  "description": "注册 MBDF-FLV 蒸馏方法论为 DSH runtime skill(多书融合蒸馏 + 四层验证,Protocol CLOSED v1.1.7)",
-  "private": true,
-  "type": "module",
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
-  "files": [
-    "lib"
-  ],
-  "license": "MIT",
-  "peerDependencies": {
-    "cordis": ">=4.0.0-rc <5",
-    "schemastery": "^3.18.0"
-  },
-  "devDependencies": {
-    "@types/node": "^24.13.3",
-    "typescript": "^5.9.0"
-  },
-  "scripts": {
-    "build": "bash scripts/build.sh",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
-  }
+﻿{
+    "name":  "@dsh-external/dsh-distill-framework",
+    "version":  "1.1.7",
+    "description":  "注册 MBDF-FLV 蒸馏方法论为 DSH runtime skill(多书融合蒸馏 + 四层验证,Protocol CLOSED v1.1.7)",
+    "private":  true,
+    "type":  "module",
+    "main":  "./lib/index.js",
+    "types":  "./lib/types/index.d.ts",
+    "files":  [
+                  "lib"
+              ],
+    "license":  "MIT",
+    "peerDependencies":  {
+                             "cordis":  "\u003e=4.0.0-rc \u003c5",
+                             "schemastery":  "^3.18.0"
+                         },
+    "devDependencies":  {
+                            "@types/node":  "^24.13.3",
+                            "typescript":  "^5.9.0"
+                        },
+    "scripts":  {
+                    "build":  "bash scripts/build.sh",
+                    "typecheck":  "tsc -p tsconfig.json --noEmit"
+                },
+    "dsh":  {
+                "bundle":  "./lib/index.js"
+            }
 }
